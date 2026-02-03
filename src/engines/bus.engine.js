@@ -1,4 +1,5 @@
 import { getBusRoutesService } from "../services/bus.service.js";
+import { logger } from "../services/logger.service.js";
 
 /**
  * Create a stable key for deduplication
@@ -20,7 +21,8 @@ function normalizeTime(t) {
 export async function findDirectBuses(origin, destination, limit = 3) {
   try {
     const routes = await getBusRoutesService(origin, destination);
-
+    logger.info("Called bus service")
+    console.log(routes)
     if (!routes || routes.length === 0) {
       return {
         found: false,
@@ -90,13 +92,3 @@ export async function findDirectBuses(origin, destination, limit = 3) {
     };
   }
 }
-const testDirectBus = async () => {
-  const result = await findDirectBuses(
-    "Bhiwandi, Maharashtra",
-    "Falna, Rajasthan"
-  );
-
-  console.log(JSON.stringify(result, null, 2));
-};
-
-testDirectBus();

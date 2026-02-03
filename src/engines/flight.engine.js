@@ -1,6 +1,6 @@
 import { searchFlights } from "../services/flights.service.js";
 import { selectAirportHubs } from "./hub.selector.js";
-
+import { logger } from "../services/logger.service.js";
 function pickBestHub(hubResult) {
   if (hubResult.nearHubs?.length > 0) {
     return { hub: hubResult.nearHubs[0], type: "NEAR" };
@@ -18,11 +18,11 @@ function buildAirportAddress(hub) {
 /**
  * Check if a flight segment exists between source & destination
  */
-export async function findFlightSegment({
+export async function findFlightSegment(
   sourceGeo,
   destinationGeo,
   outboundDate
-}) {
+) {
   // 1️⃣ Source hub
   const sourceHubResult = selectAirportHubs(sourceGeo, destinationGeo);
   const sourcePick = pickBestHub(sourceHubResult);
@@ -88,14 +88,4 @@ export async function findFlightSegment({
     reason: "FLIGHT_SEGMENT_AVAILABLE"
   };
 }
-const test = async () => {
-  const res = await findFlightSegment({
-    sourceGeo: { lat: 19.2813, lng: 73.0483 }, // Bhiwandi
-    destinationGeo: { lat: 9.9816, lng:76.2999 }, // Ernakulam
-    outboundDate: "2026-01-22"
-  });
 
-  console.log(JSON.stringify(res, null, 2));
-};
-
-test();

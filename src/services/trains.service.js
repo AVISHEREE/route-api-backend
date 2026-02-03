@@ -67,22 +67,3 @@ export {
   getStation,
   getTrains
 }
-
-// const abc = async () => {
-//   const stations = await getStation("Bhiwandi");
-
-//   if (!stations.length) {
-//     console.log("No stations found");
-//     return;
-//   }
-
-//   console.log(stations);
-//   console.log("Using station:", stations[0].name);
-
-//   // 👇 YOU MUST PASS DESTINATION
-//   const trains = await getTrains(stations[0].code, "JP"); // Jaipur example
-
-//   console.log(trains);
-// };
-
-// abc();

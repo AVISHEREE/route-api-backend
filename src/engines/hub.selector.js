@@ -1,11 +1,14 @@
 // src/engine/hub.selector.js
+import { logger } from '../services/logger.service.js';
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-import fs from "fs";
-import path from "path";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const HUBS_PATH = path.resolve("../data/master_hubs.json");
-const HUB_DATA = JSON.parse(fs.readFileSync(HUBS_PATH, "utf-8"));
-
+// This builds the path relative to the current file (hub.selector.js)
+const hubDataPath = join(__dirname, '..', 'data', 'master_hubs.json');
+const HUB_DATA = JSON.parse(readFileSync(hubDataPath, 'utf8'));
 function distanceKm(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;

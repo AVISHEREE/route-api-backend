@@ -1,4 +1,5 @@
 import { getCache, setCache } from "../services/cache.service.js";
+import { logger } from "../services/logger.service.js";
 import { getTrains } from "../services/trains.service.js";
 import { selectRailwayHubs } from "./hub.selector.js";
 
@@ -97,12 +98,23 @@ export async function findDirectTrains(source, destination, date) {
 
 
 export async function findTwoIndirectTrainSegments(source, destination, date) {
-  const hubResult = selectRailwayHubs(source, destination);
+  const hubResult = selectRailwayHubs(source.geo, destination.geo);
   const segments = [];
 
   const cleanTrain = (t) => {
     const { runningDays, score, ...rest } = t;
     return rest;
+  };
+
+  const scoreSegment = (summary, segmentType) => {
+    // Penalize far hubs slightly
+    const hubPenalty = segmentType === "CONNECTIVITY_HUB" ? 120 : 0;
+
+    return (
+      summary.totalDurationMinutes * 0.6 +
+      summary.totalEstimatedFare * 0.3 +
+      hubPenalty
+    );
   };
 
   const buildSegment = async (hub, segmentType) => {
@@ -120,8 +132,19 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
     const hToD = pickTopDirectTrains(hToDAll, date, 1)[0];
     if (!hToD) return null;
 
+    const summary = {
+      totalEstimatedFare:
+        (sToH.estimatedFare || 0) +
+        (hToD.estimatedFare || 0),
+
+      totalDurationMinutes:
+        (sToH.durationMinutes || 0) +
+        (hToD.durationMinutes || 0)
+    };
+
     return {
       segmentType,
+      score: scoreSegment(summary, segmentType),
 
       source: {
         code: source.code,
@@ -143,34 +166,20 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
         hubToDestination: cleanTrain(hToD)
       },
 
-      summary: {
-        totalEstimatedFare:
-          (sToH.estimatedFare || 0) +
-          (hToD.estimatedFare || 0),
-
-        totalDurationMinutes:
-          (sToH.durationMinutes || 0) +
-          (hToD.durationMinutes || 0)
-      }
+      summary
     };
   };
 
-  // 1️⃣ NEAR HUB SEGMENT
-  if (hubResult.nearHubs?.length) {
-    const nearSegment = await buildSegment(
-      hubResult.nearHubs[0],
-      "NEAR_HUB"
-    );
-    if (nearSegment) segments.push(nearSegment);
+  // 🔹 TRY ALL NEAR HUBS (not just first)
+  for (const hub of hubResult.nearHubs || []) {
+    const seg = await buildSegment(hub, "NEAR_HUB");
+    if (seg) segments.push(seg);
   }
 
-  // 2️⃣ CONNECTIVITY HUB SEGMENT
-  if (hubResult.connectivityHubs?.length) {
-    const connSegment = await buildSegment(
-      hubResult.connectivityHubs[0],
-      "CONNECTIVITY_HUB"
-    );
-    if (connSegment) segments.push(connSegment);
+  // 🔹 TRY ALL CONNECTIVITY HUBS
+  for (const hub of hubResult.connectivityHubs || []) {
+    const seg = await buildSegment(hub, "CONNECTIVITY_HUB");
+    if (seg) segments.push(seg);
   }
 
   if (!segments.length) {
@@ -181,36 +190,13 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
     };
   }
 
+  // ⭐ FINAL OPTIMIZATION STEP
+  segments.sort((a, b) => a.score - b.score);
+
   return {
     found: true,
-    segments
+    best: segments[0],          // ⭐ BEST (e.g. Ahmedabad)
+    alternatives: segments.slice(1, 3) // optional
   };
 }
 
-
-// const test = async () => {
-//   const result = await findDirectTrains("BIRD", "FA", "2026-01-20");
-//   console.log(result);
-// };
-
-// test();
-
-// const sourceGeo = { lat: 19.2813, lng: 73.0483 }; // Bhiwandi
-// const destGeo   = { lat: 26.9124, lng: 75.7873 }; // Jaipur
-
-// const hubs = selectRailwayHubs(
-//   { lat: 19.2813, lng: 73.0483 },  // Bhiwandi
-//   { lat: 26.9124, lng: 75.7873 } // Jaipur
-// );
-// console.log(JSON.stringify(hubs, null, 2));
-const testIndirect = async () => {
-  const source = { code: "BIRD", lat: 19.2813, lng: 73.0483 };
-  const destination = { code: "JP", lat: 26.9124, lng: 75.7873 };
-  const date = "2026-01-20";
-
-  const result = await findTwoIndirectTrainSegments(source, destination, date);
-
-  console.log(JSON.stringify(result, null, 2));
-};
-
-testIndirect();

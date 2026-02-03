@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "./config.service.js";
+import { logger } from "./logger.service.js";
 
 const GOOGLE_MAPS_BASE_URL =
   "https://maps.googleapis.com/maps/api/directions/json";
@@ -90,6 +91,14 @@ function smartRouteFilter(routes) {
  * Used by controller
  */
 export async function getBusRoutesService(origin, destination) {
+  // 1. Double check the key exists right before the call
+  const apiKey = config?.google?.apiKey;
+  
+  if (!apiKey) {
+    logger.error("Google Maps API Key is missing in config!");
+    throw new Error("Internal Configuration Error");
+  }
+
   try {
     const response = await axios.get(GOOGLE_MAPS_BASE_URL, {
       params: {
@@ -98,19 +107,25 @@ export async function getBusRoutesService(origin, destination) {
         mode: "transit",
         transit_mode: "bus",
         alternatives: true,
-        key: apiKey,
+        key: apiKey, // This was 'undefined' in your logs
       },
     });
 
+    // Google returns 200 OK even if the request is denied or no routes found
+    // so we must check the internal status field
+    if (response.data.status === "REQUEST_DENIED") {
+      logger.error(`Google API Denied: ${response.data.error_message}`);
+      return [];
+    }
+
     const groupedRoutes = filterBusRoutes(response.data);
-    const optimizedRoutes = smartRouteFilter(groupedRoutes, 2);
+    const optimizedRoutes = smartRouteFilter(groupedRoutes);
     return optimizedRoutes;
   } catch (error) {
     console.error("Bus service error:", error.message);
     throw new Error("Failed to fetch bus routes");
   }
 }
-
 
 // const abc = async () => {
 //   const abc = await getBusRoutesService("Kalyan,Maharashtra", "Bhiwandi");
