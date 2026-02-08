@@ -1,0 +1,1594 @@
+{
+  "TRAIN:BIRD:FA": {
+    "value": [
+      {
+        "trainNumber": "11090",
+        "trainName": "Pune - Bhagat Ki Kothi Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1385,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BGKT",
+          "stationName": "Falna",
+          "arrivalMinutes": 776,
+          "day": 2
+        },
+        "durationMinutes": 1140,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sun"
+        ]
+      },
+      {
+        "trainNumber": "16210",
+        "trainName": "Mysuru - Ajmer Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "MYS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1330,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Falna",
+          "arrivalMinutes": 670,
+          "day": 3
+        },
+        "durationMinutes": 2580,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Tue",
+          "Thu"
+        ]
+      },
+      {
+        "trainNumber": "16312",
+        "trainName": "Thiruvananthapuram North (Kochuveli) - Shri Ganganagar Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "TVCN",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1340,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "SGNR",
+          "stationName": "Falna",
+          "arrivalMinutes": 756,
+          "day": 3
+        },
+        "durationMinutes": 3480,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sat"
+        ]
+      },
+      {
+        "trainNumber": "16508",
+        "trainName": "KSR Bengaluru - Jodhpur Express (via Davangere) (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "SBC",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1330,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "JU",
+          "stationName": "Falna",
+          "arrivalMinutes": 670,
+          "day": 3
+        },
+        "durationMinutes": 2340,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Mon",
+          "Wed"
+        ]
+      },
+      {
+        "trainNumber": "16532",
+        "trainName": "KSR Bengaluru - Ajmer Garib Nawaz Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "SBC",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1330,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Falna",
+          "arrivalMinutes": 670,
+          "day": 3
+        },
+        "durationMinutes": 2700,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Fri"
+        ]
+      },
+      {
+        "trainNumber": "16534",
+        "trainName": "KSR Bengaluru - Bhagat ki Kothi Express (Via Guntakal) (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "SBC",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1316,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "BGKT",
+          "stationName": "Falna",
+          "arrivalMinutes": 671,
+          "day": 3
+        },
+        "durationMinutes": 2700,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sun"
+        ]
+      },
+      {
+        "trainNumber": "16587",
+        "trainName": "Yesvantpur - Bikaner Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "YPR",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 761,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "BKN",
+          "stationName": "Falna",
+          "arrivalMinutes": 83,
+          "day": 3
+        },
+        "durationMinutes": 2700,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sun",
+          "Fri"
+        ]
+      },
+      {
+        "trainNumber": "20476",
+        "trainName": "Miraj - Bikaner Weekly Superfast Express",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "MRJ",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1385,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BKN",
+          "stationName": "Falna",
+          "arrivalMinutes": 756,
+          "day": 2
+        },
+        "durationMinutes": 1740,
+        "distanceKm": 760,
+        "estimatedFare": 531,
+        "runningDays": [
+          "Tue"
+        ]
+      },
+      {
+        "trainNumber": "20496",
+        "trainName": "Hadapsar (Pune) - Jodhpur Superfast Express",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "HDP",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1359,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "JU",
+          "stationName": "Falna",
+          "arrivalMinutes": 721,
+          "day": 2
+        },
+        "durationMinutes": 1140,
+        "distanceKm": 760,
+        "estimatedFare": 531,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ]
+      },
+      {
+        "trainNumber": "22476",
+        "trainName": "Coimbatore - Hisar AC Superfast Express (PT)",
+        "type": "AC SuperFast",
+        "from": {
+          "stationCode": "CBE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 855,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "HSR",
+          "stationName": "Falna",
+          "arrivalMinutes": 142,
+          "day": 3
+        },
+        "durationMinutes": 2940,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sat"
+        ]
+      },
+      {
+        "trainNumber": "22498",
+        "trainName": "Tiruchchirappalli - Shri Ganganagar Humsafar Express",
+        "type": "Humsafar",
+        "from": {
+          "stationCode": "TPJ",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 674,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "SGNR",
+          "stationName": "Falna",
+          "arrivalMinutes": 1402,
+          "day": 2
+        },
+        "durationMinutes": 3300,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Fri"
+        ]
+      },
+      {
+        "trainNumber": "06231",
+        "trainName": "Mysuru - Jaipur Special Fare Deepavali Special",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "MYS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1431,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Falna",
+          "arrivalMinutes": 768,
+          "day": 3
+        },
+        "durationMinutes": 2520,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sat"
+        ]
+      },
+      {
+        "trainNumber": "06533",
+        "trainName": "Mysuru - Bhagat ki Kothi Special Fare AC Summer Special",
+        "type": "AC Express",
+        "from": {
+          "stationCode": "MYS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1431,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "BGKT",
+          "stationName": "Falna",
+          "arrivalMinutes": 785,
+          "day": 3
+        },
+        "durationMinutes": 2580,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Mon"
+        ]
+      },
+      {
+        "trainNumber": "07359",
+        "trainName": "SSS Hubballi - Bhagat ki Kothi Special Fare AC Special",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "UBL",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 679,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "BGKT",
+          "stationName": "Falna",
+          "arrivalMinutes": 93,
+          "day": 3
+        },
+        "durationMinutes": 2040,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sun"
+        ]
+      }
+    ],
+    "expiry": 1768393861988
+  },
+  "TRAIN:KYN:JP": {
+    "value": [
+      {
+        "trainNumber": "12939",
+        "trainName": "Pune - Jaipur Superfast Express (PT)",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 1245,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1260,
+        "distanceKm": 1154,
+        "estimatedFare": 768,
+        "runningDays": [
+          "Sun",
+          "Wed"
+        ]
+      },
+      {
+        "trainNumber": "20667",
+        "trainName": "Yesvantpur - Jaipur Superfast Express",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "YPR",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 617,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 325,
+          "day": 3
+        },
+        "durationMinutes": 2460,
+        "distanceKm": 1157,
+        "estimatedFare": 769,
+        "runningDays": [
+          "Thu"
+        ]
+      },
+      {
+        "trainNumber": "04726",
+        "trainName": "Khadki (Pune) - Hisar Special Fare Superfast Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "KK",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 1185,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "HSR",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1740,
+        "distanceKm": 1158,
+        "estimatedFare": 770,
+        "runningDays": [
+          "Mon"
+        ]
+      },
+      {
+        "trainNumber": "06231",
+        "trainName": "Mysuru - Jaipur Special Fare Deepavali Special",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "MYS",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 1405,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 1120,
+          "day": 3
+        },
+        "durationMinutes": 2520,
+        "distanceKm": 1119,
+        "estimatedFare": 615,
+        "runningDays": [
+          "Sat"
+        ]
+      },
+      {
+        "trainNumber": "06575",
+        "trainName": "Yesvantpur - Ajmer Special Fare Superfast One Way Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "YPR",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 97,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 1190,
+          "day": 2
+        },
+        "durationMinutes": 2340,
+        "distanceKm": 1158,
+        "estimatedFare": 770,
+        "runningDays": [
+          "Wed"
+        ]
+      },
+      {
+        "trainNumber": "09628",
+        "trainName": "Solapur - Ajmer Superfast Special Fare Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "SUR",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 1175,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1680,
+        "distanceKm": 1158,
+        "estimatedFare": 770,
+        "runningDays": [
+          "Thu"
+        ]
+      }
+    ],
+    "expiry": 1768404679791
+  },
+  "TRAIN:BIRD:JP": {
+    "value": [
+      {
+        "trainNumber": "12939",
+        "trainName": "Pune - Jaipur Superfast Express (PT)",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1275,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1260,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Sun",
+          "Wed"
+        ]
+      },
+      {
+        "trainNumber": "12977",
+        "trainName": "Marusagar Superfast Express (PT)",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "ERS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1238,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 775,
+          "day": 3
+        },
+        "durationMinutes": 2580,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Sun"
+        ]
+      },
+      {
+        "trainNumber": "20667",
+        "trainName": "Yesvantpur - Jaipur Superfast Express",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "YPR",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 652,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 325,
+          "day": 3
+        },
+        "durationMinutes": 2460,
+        "distanceKm": 1143,
+        "estimatedFare": 761,
+        "runningDays": [
+          "Thu"
+        ]
+      },
+      {
+        "trainNumber": "04726",
+        "trainName": "Khadki (Pune) - Hisar Special Fare Superfast Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "KK",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1279,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "HSR",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1740,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Mon"
+        ]
+      },
+      {
+        "trainNumber": "06231",
+        "trainName": "Mysuru - Jaipur Special Fare Deepavali Special",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "MYS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1431,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 1120,
+          "day": 3
+        },
+        "durationMinutes": 2520,
+        "distanceKm": 1101,
+        "estimatedFare": 605,
+        "runningDays": [
+          "Sat"
+        ]
+      },
+      {
+        "trainNumber": "06575",
+        "trainName": "Yesvantpur - Ajmer Special Fare Superfast One Way Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "YPR",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 131,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 1190,
+          "day": 2
+        },
+        "durationMinutes": 2340,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Wed"
+        ]
+      },
+      {
+        "trainNumber": "09626",
+        "trainName": "Daund - Ajmer Special Fare Superfast Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "DD",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 230,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 1255,
+          "day": 2
+        },
+        "durationMinutes": 1440,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Fri"
+        ]
+      },
+      {
+        "trainNumber": "09628",
+        "trainName": "Solapur - Ajmer Superfast Special Fare Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "SUR",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1197,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1680,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Thu"
+        ]
+      }
+    ],
+    "expiry": 1768407987296
+  },
+  "TRAIN:DIRECT:BIRD:JP": {
+    "value": [
+      {
+        "trainNumber": "12939",
+        "trainName": "Pune - Jaipur Superfast Express (PT)",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1275,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1260,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Sun",
+          "Wed"
+        ],
+        "score": 0.0010031996988518728
+      },
+      {
+        "trainNumber": "09626",
+        "trainName": "Daund - Ajmer Special Fare Superfast Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "DD",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 230,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 1255,
+          "day": 2
+        },
+        "durationMinutes": 1440,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Fri"
+        ],
+        "score": 0.0009436758893280634
+      }
+    ],
+    "expiry": 1768544440303
+  },
+  "TRAIN:DIRECT:BIRD:JP:2026-01-14": {
+    "value": [
+      {
+        "trainNumber": "12939",
+        "trainName": "Pune - Jaipur Superfast Express (PT)",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1275,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1260,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Sun",
+          "Wed"
+        ],
+        "score": 0.0010031996988518728
+      },
+      {
+        "trainNumber": "06575",
+        "trainName": "Yesvantpur - Ajmer Special Fare Superfast One Way Special",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "YPR",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 131,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 1190,
+          "day": 2
+        },
+        "durationMinutes": 2340,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Wed"
+        ],
+        "score": 0.000783419479071653
+      }
+    ],
+    "expiry": 1768545108489
+  },
+  "TRAIN:DIRECT:BIRD:JP:2026-01-18": {
+    "value": [
+      {
+        "trainNumber": "12939",
+        "trainName": "Pune - Jaipur Superfast Express (PT)",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1275,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "JP",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 880,
+          "day": 2
+        },
+        "durationMinutes": 1260,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Sun",
+          "Wed"
+        ],
+        "score": 0.0010031996988518728
+      },
+      {
+        "trainNumber": "12977",
+        "trainName": "Marusagar Superfast Express (PT)",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "ERS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1238,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Jaipur Jn",
+          "arrivalMinutes": 775,
+          "day": 3
+        },
+        "durationMinutes": 2580,
+        "distanceKm": 1140,
+        "estimatedFare": 759,
+        "runningDays": [
+          "Sun"
+        ],
+        "score": 0.0007595673621962804
+      }
+    ],
+    "expiry": 1768545148197
+  },
+  "TRAIN:DIRECT:BIRD:FA:2026-01-18": {
+    "value": [
+      {
+        "trainNumber": "11090",
+        "trainName": "Pune - Bhagat Ki Kothi Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1385,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BGKT",
+          "stationName": "Falna",
+          "arrivalMinutes": 776,
+          "day": 2
+        },
+        "durationMinutes": 1140,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Sun"
+        ],
+        "score": 0.0014832535885167465
+      },
+      {
+        "trainNumber": "20496",
+        "trainName": "Hadapsar (Pune) - Jodhpur Superfast Express",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "HDP",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1359,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "JU",
+          "stationName": "Falna",
+          "arrivalMinutes": 721,
+          "day": 2
+        },
+        "durationMinutes": 1140,
+        "distanceKm": 760,
+        "estimatedFare": 531,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ],
+        "score": 0.00127961145802359
+      }
+    ],
+    "expiry": 1768545165398
+  },
+  "TRAIN:DIRECT:BIRD:FA:2026-02-20": {
+    "value": [
+      {
+        "trainNumber": "16532",
+        "trainName": "KSR Bengaluru - Ajmer Garib Nawaz Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "SBC",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1330,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Falna",
+          "arrivalMinutes": 635,
+          "day": 3
+        },
+        "durationMinutes": 2700,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Fri"
+        ],
+        "score": 0.0011791600212652845
+      }
+    ],
+    "expiry": 1770285932215
+  },
+  "TRAIN:DIRECT:BIRD:FA:2026-01-20": {
+    "value": [
+      {
+        "trainNumber": "16210",
+        "trainName": "Mysuru - Ajmer Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "MYS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1330,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Falna",
+          "arrivalMinutes": 635,
+          "day": 3
+        },
+        "durationMinutes": 2460,
+        "distanceKm": 760,
+        "estimatedFare": 418,
+        "runningDays": [
+          "Tue",
+          "Thu"
+        ],
+        "score": 0.0012008402380674524
+      },
+      {
+        "trainNumber": "20476",
+        "trainName": "Miraj - Bikaner Weekly Superfast Express",
+        "type": "SuperFast",
+        "from": {
+          "stationCode": "MRJ",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1385,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BKN",
+          "stationName": "Falna",
+          "arrivalMinutes": 752,
+          "day": 2
+        },
+        "durationMinutes": 1740,
+        "distanceKm": 760,
+        "estimatedFare": 531,
+        "runningDays": [
+          "Tue"
+        ],
+        "score": 0.0010981232547568024
+      }
+    ],
+    "expiry": 1770289290451
+  },
+  "TRAIN:DIRECT:BIRD:ADI:2026-02-20": {
+    "value": [
+      {
+        "trainNumber": "16614",
+        "trainName": "Coimbatore - Rajkot Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "CBE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 320,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "RJT",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 805,
+          "day": 2
+        },
+        "durationMinutes": 2460,
+        "distanceKm": 473,
+        "estimatedFare": 260,
+        "runningDays": [
+          "Fri"
+        ],
+        "score": 0.001782363977485929
+      },
+      {
+        "trainNumber": "16338",
+        "trainName": "Ernakulam - Okha Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "ERS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1345,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "OKHA",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 400,
+          "day": 3
+        },
+        "durationMinutes": 2640,
+        "distanceKm": 473,
+        "estimatedFare": 260,
+        "runningDays": [
+          "Wed",
+          "Fri"
+        ],
+        "score": 0.001765734265734266
+      }
+    ],
+    "expiry": 1770297142333
+  },
+  "TRAIN:DIRECT:CSMT:PUNE:2026-02-20": {
+    "value": [
+      {
+        "trainNumber": "12125",
+        "trainName": "Pragati Express",
+        "type": "SUF",
+        "from": {
+          "stationCode": "CSMT",
+          "stationName": "Mumbai CSM Trm",
+          "departureMinutes": 985,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "PUNE",
+          "stationName": "Pune Jn",
+          "arrivalMinutes": 1190,
+          "day": 1
+        },
+        "durationMinutes": 180,
+        "distanceKm": 188,
+        "estimatedFare": 103,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ],
+        "score": 0.007216828478964401
+      },
+      {
+        "trainNumber": "12123",
+        "trainName": "Deccan Queen",
+        "type": "SUF",
+        "from": {
+          "stationCode": "CSMT",
+          "stationName": "Mumbai CSM Trm",
+          "departureMinutes": 1030,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "PUNE",
+          "stationName": "Pune Jn",
+          "arrivalMinutes": 1225,
+          "day": 1
+        },
+        "durationMinutes": 180,
+        "distanceKm": 191,
+        "estimatedFare": 105,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ],
+        "score": 0.0071428571428571435
+      }
+    ],
+    "expiry": 1770312894839
+  },
+  "TRAIN:DIRECT:BSR:BDTS:2026-02-15": {
+    "value": [
+      {
+        "trainNumber": "12936",
+        "trainName": "Bandra Terminus InterCity Express",
+        "type": "SUF",
+        "from": {
+          "stationCode": "ST",
+          "stationName": "Vasai Road",
+          "departureMinutes": 1175,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BDTS",
+          "stationName": "Mumbai Bandra Trm",
+          "arrivalMinutes": 1245,
+          "day": 1
+        },
+        "durationMinutes": 240,
+        "distanceKm": 36,
+        "estimatedFare": 20,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ],
+        "score": 0.022500000000000003
+      },
+      {
+        "trainNumber": "09056",
+        "trainName": "Bandra Terminus Special Fare Special",
+        "type": "MEX",
+        "from": {
+          "stationCode": "UDN",
+          "stationName": "Vasai Road",
+          "departureMinutes": 1210,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BDTS",
+          "stationName": "Mumbai Bandra Trm",
+          "arrivalMinutes": 1295,
+          "day": 1
+        },
+        "durationMinutes": 300,
+        "distanceKm": 36,
+        "estimatedFare": 20,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Fri",
+          "Sat"
+        ],
+        "score": 0.022000000000000006
+      }
+    ],
+    "expiry": 1770314200773
+  },
+  "TRAIN:DIRECT:KYN:ADI:2026-02-16": {
+    "value": [
+      {
+        "trainNumber": "20476",
+        "trainName": "Bikaner Weekly SF Express",
+        "type": "SUF",
+        "from": {
+          "stationCode": "MRJ",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 1345,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BKN",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 445,
+          "day": 1
+        },
+        "durationMinutes": 1740,
+        "distanceKm": 487,
+        "estimatedFare": 268,
+        "runningDays": [
+          "Mon"
+        ],
+        "score": 0.0018373648996397323
+      },
+      {
+        "trainNumber": "16508",
+        "trainName": "KSR Bengaluru - Jodhpur Express (via Davangere) (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "SBC",
+          "stationName": "Kalyan Jn",
+          "departureMinutes": 1290,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "JU",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 330,
+          "day": 3
+        },
+        "durationMinutes": 2280,
+        "distanceKm": 487,
+        "estimatedFare": 268,
+        "runningDays": [
+          "Mon",
+          "Wed"
+        ],
+        "score": 0.001755695208169678
+      }
+    ],
+    "expiry": 1770314201354
+  },
+  "TRAIN:DIRECT:BSR:ADI:2026-02-15": {
+    "value": [
+      {
+        "trainNumber": "22961",
+        "trainName": "Ahmedabad Vande Bharat Express",
+        "type": "MEX",
+        "from": {
+          "stationCode": "MMCT",
+          "stationName": "Vasai Road",
+          "departureMinutes": 984,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "ADI",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 1275,
+          "day": 1
+        },
+        "durationMinutes": 300,
+        "distanceKm": 446,
+        "estimatedFare": 245,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri"
+        ],
+        "score": 0.0036326530612244903
+      },
+      {
+        "trainNumber": "12009",
+        "trainName": "Ahmedabad Shatabdi Express",
+        "type": "SHT",
+        "from": {
+          "stationCode": "MMCT",
+          "stationName": "Vasai Road",
+          "departureMinutes": 415,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "ADI",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 760,
+          "day": 1
+        },
+        "durationMinutes": 360,
+        "distanceKm": 446,
+        "estimatedFare": 245,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri"
+        ],
+        "score": 0.003299319727891157
+      }
+    ],
+    "expiry": 1770314260066
+  },
+  "TRAIN:DIRECT:BIRD:ADI:2026-02-17": {
+    "value": [
+      {
+        "trainNumber": "22186",
+        "trainName": "Ahimsa SF Express",
+        "type": "SUF",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1385,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "ADI",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 455,
+          "day": 1
+        },
+        "durationMinutes": 660,
+        "distanceKm": 473,
+        "estimatedFare": 260,
+        "runningDays": [
+          "Tue"
+        ],
+        "score": 0.0024475524475524478
+      },
+      {
+        "trainNumber": "16210",
+        "trainName": "Mysuru - Ajmer Express (PT)",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "MYS",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1330,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "AII",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 330,
+          "day": 3
+        },
+        "durationMinutes": 2460,
+        "distanceKm": 473,
+        "estimatedFare": 260,
+        "runningDays": [
+          "Tue",
+          "Thu"
+        ],
+        "score": 0.001782363977485929
+      }
+    ],
+    "expiry": 1770314458070
+  },
+  "TRAIN:DIRECT:BSR:BDTS:2026-02-20": {
+    "value": [
+      {
+        "trainNumber": "12936",
+        "trainName": "Bandra Terminus InterCity Express",
+        "type": "SUF",
+        "from": {
+          "stationCode": "ST",
+          "stationName": "Vasai Road",
+          "departureMinutes": 1175,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BDTS",
+          "stationName": "Mumbai Bandra Trm",
+          "arrivalMinutes": 1245,
+          "day": 1
+        },
+        "durationMinutes": 240,
+        "distanceKm": 36,
+        "estimatedFare": 20,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ],
+        "score": 0.022500000000000003
+      },
+      {
+        "trainNumber": "09056",
+        "trainName": "Bandra Terminus Special Fare Special",
+        "type": "MEX",
+        "from": {
+          "stationCode": "UDN",
+          "stationName": "Vasai Road",
+          "departureMinutes": 1210,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BDTS",
+          "stationName": "Mumbai Bandra Trm",
+          "arrivalMinutes": 1295,
+          "day": 1
+        },
+        "durationMinutes": 300,
+        "distanceKm": 36,
+        "estimatedFare": 20,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Fri",
+          "Sat"
+        ],
+        "score": 0.022000000000000006
+      }
+    ],
+    "expiry": 1770314731715
+  },
+  "TRAIN:DIRECT:BSR:ADI:2026-02-20": {
+    "value": [
+      {
+        "trainNumber": "22961",
+        "trainName": "Ahmedabad Vande Bharat Express",
+        "type": "MEX",
+        "from": {
+          "stationCode": "MMCT",
+          "stationName": "Vasai Road",
+          "departureMinutes": 984,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "ADI",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 1275,
+          "day": 1
+        },
+        "durationMinutes": 300,
+        "distanceKm": 446,
+        "estimatedFare": 245,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri"
+        ],
+        "score": 0.0036326530612244903
+      },
+      {
+        "trainNumber": "12009",
+        "trainName": "Ahmedabad Shatabdi Express",
+        "type": "SHT",
+        "from": {
+          "stationCode": "MMCT",
+          "stationName": "Vasai Road",
+          "departureMinutes": 415,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "ADI",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 760,
+          "day": 1
+        },
+        "durationMinutes": 360,
+        "distanceKm": 446,
+        "estimatedFare": 245,
+        "runningDays": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri"
+        ],
+        "score": 0.003299319727891157
+      }
+    ],
+    "expiry": 1770314733424
+  },
+  "TRAIN:DIRECT:PUNE:ADI:2026-02-20": {
+    "value": [
+      {
+        "trainNumber": "16614",
+        "trainName": "Rajkot Express",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "CBE",
+          "stationName": "Pune Jn",
+          "departureMinutes": 85,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "RJT",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 805,
+          "day": 2
+        },
+        "durationMinutes": 2460,
+        "distanceKm": 626,
+        "estimatedFare": 344,
+        "runningDays": [
+          "Fri"
+        ],
+        "score": 0.0014066931366988088
+      },
+      {
+        "trainNumber": "16587",
+        "trainName": "Bikaner Express",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "YPR",
+          "stationName": "Pune Jn",
+          "departureMinutes": 580,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "BKN",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 1195,
+          "day": 2
+        },
+        "durationMinutes": 2640,
+        "distanceKm": 626,
+        "estimatedFare": 344,
+        "runningDays": [
+          "Sun",
+          "Fri"
+        ],
+        "score": 0.0013900634249471458
+      }
+    ],
+    "expiry": 1770712986301
+  },
+  "TRAIN:DIRECT:ADI:CDG:2026-02-09": {
+    "value": [
+      {
+        "trainNumber": "22451",
+        "trainName": "Chandigarh SF Express",
+        "type": "Superfast Express",
+        "from": {
+          "stationCode": "BDTS",
+          "stationName": "Ahmedabad Jn",
+          "departureMinutes": 1140,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "CDG",
+          "stationName": "Chandigarh Jn",
+          "arrivalMinutes": 855,
+          "day": 2
+        },
+        "durationMinutes": 1560,
+        "distanceKm": 1106,
+        "estimatedFare": 609,
+        "runningDays": [
+          "Mon",
+          "Thu"
+        ],
+        "score": 0.0010414298345332827
+      }
+    ],
+    "expiry": 1770721121049
+  },
+  "TRAIN:DIRECT:BIRD:ADI:2026-02-09": {
+    "value": [
+      {
+        "trainNumber": "11092",
+        "trainName": "Pune - Bhuj Express",
+        "type": "Mail/Express",
+        "from": {
+          "stationCode": "PUNE",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 1385,
+          "day": 1
+        },
+        "to": {
+          "stationCode": "BHUJ",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 445,
+          "day": 2
+        },
+        "durationMinutes": 1080,
+        "distanceKm": 473,
+        "estimatedFare": 260,
+        "runningDays": [
+          "Mon"
+        ],
+        "score": 0.002094017094017094
+      },
+      {
+        "trainNumber": "22718",
+        "trainName": "Rajkot SF Express",
+        "type": "Superfast Express",
+        "from": {
+          "stationCode": "SC",
+          "stationName": "Bhiwandi Road",
+          "departureMinutes": 320,
+          "day": 2
+        },
+        "to": {
+          "stationCode": "RJT",
+          "stationName": "Ahmedabad Jn",
+          "arrivalMinutes": 805,
+          "day": 2
+        },
+        "durationMinutes": 1560,
+        "distanceKm": 473,
+        "estimatedFare": 260,
+        "runningDays": [
+          "Mon",
+          "Tue",
+          "Sat"
+        ],
+        "score": 0.0019230769230769232
+      }
+    ],
+    "expiry": 1770730988318
+  }
+}
