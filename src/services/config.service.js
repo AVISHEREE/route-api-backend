@@ -2,7 +2,7 @@ export const config = {
   env: process.env.NODE_ENV || "development",
 
   google: {
-    apiKey: process.env.GOOGLE_MAPS_API_KEY,
+    apiKey: process.env.GOOGLE_API_KEY,
   },
   railRadar:{
     apiKey:process.env.RAILRADAR_API_KEY,
@@ -19,8 +19,3 @@ export const config = {
     ttl: Number(process.env.CACHE_TTL) || 1800,
   },
 };
-if (!config.railRadar.apiKey) {
-  throw new Error(
-    "❌ RAILRADAR_API_KEY is undefined. dotenv not loaded or .env missing."
-  );
-}

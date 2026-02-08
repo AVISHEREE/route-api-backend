@@ -1,46 +1,17 @@
 import fs from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import path from "path";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-/**
- * Absolute path to cache file
- * src/data/cache.json
- */
-const CACHE_FILE_PATH = join(__dirname, "..", "data", "cache.json");
-
-const DEFAULT_TTL = 50 * 60 * 60; // 50 hours (seconds)
-
-/* =====================================================
-   INTERNAL HELPERS
-   ===================================================== */
-
-function ensureCacheFile() {
-  if (!fs.existsSync(CACHE_FILE_PATH)) {
-    fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify({}, null, 2));
-  }
-}
+const CACHE_FILE = path.resolve("../data/cache.json");
+const DEFAULT_TTL = 50 * 60 * 60; // 50 hours in seconds
 
 function readCache() {
-  ensureCacheFile();
-  try {
-    return JSON.parse(fs.readFileSync(CACHE_FILE_PATH, "utf-8"));
-  } catch {
-    return {};
-  }
+  if (!fs.existsSync(CACHE_FILE)) return {};
+  return JSON.parse(fs.readFileSync(CACHE_FILE, "utf-8"));
 }
 
 function writeCache(data) {
-  fs.writeFileSync(
-    CACHE_FILE_PATH,
-    JSON.stringify(data, null, 2)
-  );
+  fs.writeFileSync(CACHE_FILE, JSON.stringify(data, null, 2));
 }
-
-/* =====================================================
-   PUBLIC API
-   ===================================================== */
 
 export function setCache(key, value, ttl = DEFAULT_TTL) {
   const cache = readCache();
@@ -55,15 +26,15 @@ export function setCache(key, value, ttl = DEFAULT_TTL) {
 
 export function getCache(key) {
   const cache = readCache();
-  const entry = cache[key];
+  const data = cache[key];
 
-  if (!entry) return null;
+  if (!data) return null;
 
-  if (Date.now() > entry.expiry) {
+  if (Date.now() > data.expiry) {
     delete cache[key];
     writeCache(cache);
     return null;
   }
 
-  return entry.value;
+  return data.value;
 }
