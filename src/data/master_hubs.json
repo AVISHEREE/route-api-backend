@@ -56,5 +56,27 @@
     { "city": "Amritsar", "code": "ATQ", "name": "Sri Guru Ram Dass Jee International Airport", "state": "Punjab", "tier": 2, "priority": 2, "geo": { "lat": 31.7096, "lng": 74.7973 } },
     { "city": "Varanasi", "code": "VNS", "name": "Lal Bahadur Shastri International Airport", "state": "Uttar Pradesh", "tier": 2, "priority": 2, "geo": { "lat": 25.4497, "lng": 82.8587 } },
     { "city": "Chandigarh", "code": "IXC", "name": "Shaheed Bhagat Singh International Airport", "state": "Chandigarh", "tier": 2, "priority": 2, "geo": { "lat": 30.6735, "lng": 76.7885 } }
-  ]
+  ],
+  "NATIONAL_CONNECTIVITY_HUBS": [
+  { "city": "Delhi", "code": "NDLS", "name": "New Delhi Railway Station", "state": "Delhi", "tier": 1, "priority": 1, "geo": { "lat": 28.6430, "lng": 77.2223 } },
+  { "city": "Mumbai", "code": "MMCT", "name": "Mumbai Central", "state": "Maharashtra", "tier": 1, "priority": 1, "geo": { "lat": 18.9696, "lng": 72.8193 } },
+  { "city": "Bengaluru", "code": "SBC", "name": "KSR Bengaluru City Junction", "state": "Karnataka", "tier": 1, "priority": 1, "geo": { "lat": 12.9779, "lng": 77.5667 } },
+  { "city": "Hyderabad", "code": "SC", "name": "Secunderabad Junction", "state": "Telangana", "tier": 1, "priority": 1, "geo": { "lat": 17.4334, "lng": 78.5017 } },
+  { "city": "Chennai", "code": "MAS", "name": "Chennai Central", "state": "Tamil Nadu", "tier": 1, "priority": 1, "geo": { "lat": 13.0827, "lng": 80.2707 } },
+  { "city": "Kolkata", "code": "HWH", "name": "Howrah Junction", "state": "West Bengal", "tier": 1, "priority": 1, "geo": { "lat": 22.5851, "lng": 88.3385 } },
+  { "city": "Ahmedabad", "code": "ADI", "name": "Ahmedabad Junction", "state": "Gujarat", "tier": 1, "priority": 2, "geo": { "lat": 23.0270, "lng": 72.5944 } },
+  { "city": "Kochi", "code": "ERS", "name": "Ernakulam Junction", "state": "Kerala", "tier": 2, "priority": 2, "geo": { "lat": 9.9658, "lng": 76.2874 } },
+  { "city": "Lucknow", "code": "LKO", "name": "Lucknow Charbagh", "state": "Uttar Pradesh", "tier": 1, "priority": 2, "geo": { "lat": 26.8317, "lng": 80.9151 } },
+  { "city": "Guwahati", "code": "GHY", "name": "Guwahati Railway Station", "state": "Assam", "tier": 2, "priority": 1, "geo": { "lat": 26.1812, "lng": 91.7516 } },
+  { "city": "Goa", "code": "MAO", "name": "Madgaon Junction", "state": "Goa", "tier": 2, "priority": 2, "geo": { "lat": 15.2736, "lng": 73.9580 } },
+  { "city": "Jaipur", "code": "JP", "name": "Jaipur Junction", "state": "Rajasthan", "tier": 1, "priority": 2, "geo": { "lat": 26.9197, "lng": 75.7878 } },
+  { "city": "Pune", "code": "PUNE", "name": "Pune Junction", "state": "Maharashtra", "tier": 1, "priority": 2, "geo": { "lat": 18.5289, "lng": 73.8744 } },
+  { "city": "Bhubaneswar", "code": "BBS", "name": "Bhubaneswar Railway Station", "state": "Odisha", "tier": 2, "priority": 2, "geo": { "lat": 20.2644, "lng": 85.8435 } },
+  { "city": "Indore", "code": "INDB", "name": "Indore Junction", "state": "Madhya Pradesh", "tier": 2, "priority": 2, "geo": { "lat": 22.7185, "lng": 75.8710 } },
+  { "city": "Visakhapatnam", "code": "VSKP", "name": "Visakhapatnam Junction", "state": "Andhra Pradesh", "tier": 2, "priority": 2, "geo": { "lat": 17.7285, "lng": 83.2987 } },
+  { "city": "Amritsar", "code": "ASR", "name": "Amritsar Junction", "state": "Punjab", "tier": 2, "priority": 2, "geo": { "lat": 31.6340, "lng": 74.8723 } },
+  { "city": "Varanasi", "code": "BSB", "name": "Varanasi Junction", "state": "Uttar Pradesh", "tier": 1, "priority": 2, "geo": { "lat": 25.3283, "lng": 82.9734 } },
+  { "city": "Chandigarh", "code": "CDG", "name": "Chandigarh Junction", "state": "Chandigarh", "tier": 2, "priority": 2, "geo": { "lat": 30.7061, "lng": 76.8223 } },
+  { "city": "Nagpur", "code": "NGP", "name": "Nagpur Junction", "state": "Maharashtra", "tier": 1, "priority": 2, "geo": { "lat": 21.1517, "lng": 79.0882 } }
+] 
 }
