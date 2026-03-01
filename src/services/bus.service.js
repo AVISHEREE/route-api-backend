@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "./config.service.js";
+import { logger } from "./logger.service.js";
 
 const GOOGLE_MAPS_BASE_URL =
   "https://maps.googleapis.com/maps/api/directions/json";
@@ -91,6 +92,9 @@ function smartRouteFilter(routes) {
  */
 export async function getBusRoutesService(origin, destination) {
   try {
+    if (!config.google.apiKey) {
+      throw new Error("Google Maps API key is missing");
+    }
     const response = await axios.get(GOOGLE_MAPS_BASE_URL, {
       params: {
         origin,
@@ -103,10 +107,10 @@ export async function getBusRoutesService(origin, destination) {
     });
 
     const groupedRoutes = filterBusRoutes(response.data);
-    const optimizedRoutes = smartRouteFilter(groupedRoutes, 2);
+    const optimizedRoutes = smartRouteFilter(groupedRoutes);
     return optimizedRoutes;
   } catch (error) {
-    console.error("Bus service error:", error.message);
+    logger.warn(`Bus service error: ${error.message}`);
     throw new Error("Failed to fetch bus routes");
   }
 }

@@ -1,5 +1,8 @@
 import { searchFlights } from "../services/flights.service.js";
 import { selectAirportHubs } from "./hub.selector.js";
+import { getCache, setCache } from "../services/cache.service.js";
+import { buildCacheKey } from "../utils/cacheKey.js";
+import { recordRouteResult } from "../services/analytics.service.js";
 
 function pickBestHub(hubResult) {
   if (hubResult.nearHubs?.length > 0) {
@@ -18,84 +21,93 @@ function buildAirportAddress(hub) {
 /**
  * Check if a flight segment exists between source & destination
  */
-export async function findFlightSegment({
+export async function findFlightSegment(
   sourceGeo,
   destinationGeo,
-  outboundDate
-}) {
-  // 1️⃣ Source hub
+  outboundDate,
+) {
   const sourceHubResult = selectAirportHubs(sourceGeo, destinationGeo);
   const sourcePick = pickBestHub(sourceHubResult);
-
   if (!sourcePick) {
     return { found: false, reason: "NO_SOURCE_HUB" };
   }
 
-  // 2️⃣ Destination hub
   const destHubResult = selectAirportHubs(destinationGeo, sourceGeo);
   const destPick = pickBestHub(destHubResult);
-
   if (!destPick) {
     return { found: false, reason: "NO_DEST_HUB" };
   }
 
-  // 3️⃣ Check flights
+  const cacheKey = buildCacheKey(
+    "FLIGHT_SEGMENT",
+    sourcePick.hub.code,
+    destPick.hub.code,
+    outboundDate,
+  );
+  const cached = await getCache(cacheKey);
+  if (cached) {
+    console.log(`Cache hit for key=${cacheKey}`);
+    return cached;
+  }
+  console.log(`Cache miss for key=${cacheKey}`);
+
   const flights = await searchFlights({
     source: sourcePick.hub.code,
     destination: destPick.hub.code,
     outboundDate,
     type: 2,
-    sort: "best"
+    sort: "best",
   });
 
   if (!flights || flights.length === 0) {
     return { found: false, reason: "NO_FLIGHT_SEGMENT" };
   }
 
-  const prices = flights.map(f => f.price).filter(Boolean);
-  const durations = flights.map(f => f.durationMinutes).filter(Boolean);
+  const prices = flights.map((f) => f.price).filter(Boolean);
+  const durations = flights.map((f) => f.durationMinutes).filter(Boolean);
+  if (!prices.length || !durations.length) {
+    return { found: false, reason: "INVALID_FLIGHT_DATA" };
+  }
 
-  // 4️⃣ Segment response (FULL ADDRESS)
-  return {
+  const minPrice = Math.min(...prices);
+  const minDurationMinutes = Math.min(...durations);
+
+  void recordRouteResult({
+    source: sourcePick.hub.code,
+    destination: destPick.hub.code,
+    date: outboundDate,
+    type: "flight_segment",
+    price: minPrice,
+    duration: minDurationMinutes,
+  });
+
+  const response = {
     found: true,
     type: "FLIGHT_SEGMENT",
-
     segment: {
       from: {
         airportCode: sourcePick.hub.code,
         airportName: sourcePick.hub.name,
         address: buildAirportAddress(sourcePick.hub),
         city: sourcePick.hub.city,
-        state: sourcePick.hub.state
+        state: sourcePick.hub.state,
       },
-
       to: {
         airportCode: destPick.hub.code,
         airportName: destPick.hub.name,
         address: buildAirportAddress(destPick.hub),
         city: destPick.hub.city,
-        state: destPick.hub.state
+        state: destPick.hub.state,
       },
-
       sourceHubType: sourcePick.type,
       destinationHubType: destPick.type,
-
       flightCount: flights.length,
-      minPrice: Math.min(...prices),
-      minDurationMinutes: Math.min(...durations)
+      minPrice,
+      minDurationMinutes,
     },
-
-    reason: "FLIGHT_SEGMENT_AVAILABLE"
+    reason: "FLIGHT_SEGMENT_AVAILABLE",
   };
+
+  await setCache(cacheKey, response);
+  return response;
 }
-const test = async () => {
-  const res = await findFlightSegment({
-    sourceGeo: { lat: 19.2813, lng: 73.0483 }, // Bhiwandi
-    destinationGeo: { lat: 9.9816, lng:76.2999 }, // Ernakulam
-    outboundDate: "2026-01-22"
-  });
-
-  console.log(JSON.stringify(res, null, 2));
-};
-
-test();

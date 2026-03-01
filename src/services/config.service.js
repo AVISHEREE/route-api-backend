@@ -1,8 +1,7 @@
 export const config = {
   env: process.env.NODE_ENV || "development",
-
   google: {
-    apiKey: process.env.GOOGLE_API_KEY,
+    apiKey: process.env.GOOGLE_MAPS_API_KEY,
   },
   railRadar:{
     apiKey:process.env.RAILRADAR_API_KEY,

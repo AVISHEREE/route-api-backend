@@ -1,17 +1,15 @@
-import calculateDistance from './distance.util.js'
+import { calculateDistance } from "./distance.util.js";
 
-function sortByDistance(originLat, originLng, places) {
-  return places
-    .map(place => ({
+export function sortByDistance(originLat, originLng, places) {
+  return (places || [])
+    .map((place) => ({
       ...place,
       distanceKm: calculateDistance(
         originLat,
         originLng,
         place.lat,
-        place.lng
+        place.lng,
       ),
     }))
     .sort((a, b) => a.distanceKm - b.distanceKm);
 }
-
-module.exports = { sortByDistance };

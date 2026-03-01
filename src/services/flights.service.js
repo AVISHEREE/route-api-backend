@@ -1,12 +1,14 @@
 import axios from "axios";
 import { config } from "./config.service.js";
+import { logger } from "./logger.service.js";
 
 const SERP_API_KEY = config.serp.apiKey;
 
 function formatFlights(data, limit = 5) {
+  const safe = data || {};
   const allFlights = [
-    ...(data.best_flights || []),
-    ...(data.other_flights || [])
+    ...(safe.best_flights || []),
+    ...(safe.other_flights || [])
   ];
 
   const flights = allFlights
@@ -32,6 +34,8 @@ function formatFlights(data, limit = 5) {
         currency: "INR"
       };
     });
+
+  if (!flights.length) return [];
 
   // NORMALIZATION
   const maxPrice = Math.max(...flights.map(f => f.price));
@@ -64,8 +68,7 @@ export async function searchFlights(query) {
     destination,
     outboundDate,
     returnDate,
-    type = 2,
-    sort = "best"
+    type = 2
   } = query;
 
   const params = {
@@ -81,12 +84,18 @@ export async function searchFlights(query) {
 
   if (type === 1) params.return_date = returnDate;
 
-  const { data } = await axios.get(
-    "https://serpapi.com/search.json",
-    { params }
-  );
+  try {
+    if (!SERP_API_KEY) throw new Error("SERP API key is missing");
+    const { data } = await axios.get(
+      "https://serpapi.com/search.json",
+      { params }
+    );
 
-  return formatFlights(data, 5);
+    return formatFlights(data, 5);
+  } catch (err) {
+    logger.warn(`Flight search failed: ${err.message}`);
+    throw new Error("Failed to fetch flights");
+  }
 }
 
 

@@ -3,7 +3,7 @@
 import fs from "fs";
 import path from "path";
 
-const HUBS_PATH = path.resolve("../data/master_hubs.json");
+const HUBS_PATH = path.resolve("./src/data/master_hubs.json");
 const HUB_DATA = JSON.parse(fs.readFileSync(HUBS_PATH, "utf-8"));
 
 function distanceKm(lat1, lng1, lat2, lng2) {
@@ -20,11 +20,15 @@ function distanceKm(lat1, lng1, lat2, lng2) {
   return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
 }
 
-export function selectRailwayHubs(sourceGeo, destinationGeo) {
+/* ============================================================
+   RAILWAY HUB SELECTOR
+============================================================ */
+
+export function selectRailwayHubs(sourceGeo, destinationGeo, mode = "train") {
   const NEAR_RADIUS_KM = 60;
   const CONNECTIVITY_MAX_DIST = 700;
   const MID_RADIUS_KM = 350;
-  const MAX_DETOUR_RATIO = 0.18; // ⭐ REAL FIX
+  const MAX_DETOUR_RATIO = 0.18;
 
   const directDistance = distanceKm(
     sourceGeo.lat,
@@ -64,51 +68,55 @@ export function selectRailwayHubs(sourceGeo, destinationGeo) {
     return {
       ...hub,
       distFromSource,
+      distToDestination,
       distFromMid,
-      detour,
       detourRatio
     };
   });
 
-  // 🅰️ NEAR HUBS
-  const nearHubs = hubs
-    .filter(hub =>
-      hub.tier === 1 &&
-      hub.distFromSource <= NEAR_RADIUS_KM &&
-      (
-        hub.type.toLowerCase().includes("suburban") ||
-        hub.type.toLowerCase().includes("gateway") ||
-        hub.type.toLowerCase().includes("national")
-      )
-    )
-    .map(hub => ({
-      ...hub,
-      score:
-        hub.distFromSource * 0.8 +
-        (4 - hub.priority) * 25
-    }))
-    .sort((a, b) => a.score - b.score)
-    .slice(0, 2);
+  // 🅰️ NEAR HUBS (Train mode only)
+  const nearHubs =
+    mode === "train"
+      ? hubs
+          .filter(
+            hub =>
+              hub.tier === 1 &&
+              hub.distFromSource <= NEAR_RADIUS_KM
+          )
+          .sort((a, b) => a.distFromSource - b.distFromSource)
+          .slice(0, 2)
+      : [];
 
-  // 🅱️ CONNECTIVITY HUBS (FINAL, CORRECT)
+  // 🅱️ CONNECTIVITY HUBS
   const connectivityHubs = hubs
-    .filter(hub =>
-      hub.distFromSource > NEAR_RADIUS_KM &&
-      hub.distFromSource <= CONNECTIVITY_MAX_DIST &&
-      hub.distFromMid <= MID_RADIUS_KM &&
-      hub.detourRatio <= MAX_DETOUR_RATIO &&   // ⭐ THIS KILLS BHOPAL
-      hub.connectivity_score >= 7 &&
-      hub.tier <= 2
-    )
-    .map(hub => ({
-      ...hub,
-      score:
-        hub.detourRatio * 500 +
-        hub.distFromMid * 0.25 +
-        (10 - hub.connectivity_score) * 40 +
-        (4 - hub.priority) * 20
-    }))
-    .sort((a, b) => a.score - b.score)
+    .filter(hub => {
+      if (mode === "train") {
+        return (
+          hub.distFromSource > NEAR_RADIUS_KM &&
+          hub.distFromSource <= CONNECTIVITY_MAX_DIST &&
+          hub.distFromMid <= MID_RADIUS_KM &&
+          hub.detourRatio <= MAX_DETOUR_RATIO &&
+          hub.connectivity_score >= 7 &&
+          hub.tier <= 2
+        );
+      }
+
+      if (mode === "flight-train") {
+        // ⭐ KEY FIX: Destination-based filtering
+        return (
+          hub.distToDestination <= 250 &&
+          hub.tier <= 2
+        );
+      }
+
+      return false;
+    })
+    .sort((a, b) => {
+      if (mode === "flight-train") {
+        return a.distToDestination - b.distToDestination;
+      }
+      return a.detourRatio - b.detourRatio;
+    })
     .slice(0, 3);
 
   return {
@@ -117,9 +125,13 @@ export function selectRailwayHubs(sourceGeo, destinationGeo) {
   };
 }
 
-export function selectAirportHubs(sourceGeo, destinationGeo) {
-  const NEAR_RADIUS_KM = 300;     // airports within 300 km
-  const MAX_SOURCE_DIST = 800;    // don’t go too far back
+/* ============================================================
+   AIRPORT HUB SELECTOR
+============================================================ */
+
+export function selectAirportHubs(sourceGeo, destinationGeo, mode = "flight") {
+  const NEAR_RADIUS_KM = 300;
+  const MAX_SOURCE_DIST = 800;
   const MAX_HUBS = 5;
 
   const hubs = HUB_DATA.airport_hubs.map(hub => {
@@ -144,40 +156,48 @@ export function selectAirportHubs(sourceGeo, destinationGeo) {
     };
   });
 
-  // 🅰️ NEAR AIRPORT HUBS (PRIMARY)
+  // 🅰️ NEAR HUBS
   const nearHubs = hubs
-    .filter(hub =>
-      hub.distFromSource <= NEAR_RADIUS_KM &&
-      hub.tier <= 2
-    )
-    .map(hub => ({
-      ...hub,
-      score:
-        hub.distFromSource * 0.7 +
-        (4 - hub.priority) * 40
-    }))
-    .sort((a, b) => a.score - b.score)
+    .filter(hub => {
+      if (mode === "flight") {
+        return hub.distFromSource <= NEAR_RADIUS_KM;
+      }
+
+      if (mode === "flight-train") {
+        // ⭐ KEY FIX: Destination-based airport selection
+        return hub.distToDestination <= 300;
+      }
+
+      return false;
+    })
+    .sort((a, b) => {
+      if (mode === "flight-train") {
+        return a.distToDestination - b.distToDestination;
+      }
+      return a.distFromSource - b.distFromSource;
+    })
     .slice(0, 2);
 
-  // 🅱️ CONNECTIVITY AIRPORT HUBS
-  const connectivityHubs = hubs
-    .filter(hub =>
-      hub.distFromSource > NEAR_RADIUS_KM &&
-      hub.distFromSource <= MAX_SOURCE_DIST &&
-      hub.tier <= 2
-    )
-    .map(hub => ({
-      ...hub,
-      score:
-        hub.distFromSource * 0.4 +
-        (4 - hub.priority) * 50 +
-        hub.distToDestination * 0.2
-    }))
-    .sort((a, b) => a.score - b.score)
-    .slice(0, MAX_HUBS);
+  // 🅱️ CONNECTIVITY HUBS
+  const connectivityHubs =
+    mode === "flight"
+      ? hubs
+          .filter(
+            hub =>
+              hub.distFromSource > NEAR_RADIUS_KM &&
+              hub.distFromSource <= MAX_SOURCE_DIST
+          )
+          .sort((a, b) => a.distFromSource - b.distFromSource)
+          .slice(0, MAX_HUBS)
+      : [];
 
   return {
     nearHubs,
     connectivityHubs
   };
 }
+
+export const HUB_DATA_ex = {
+  railway_hubs: HUB_DATA.railway_hubs || [],
+  airport_hubs: HUB_DATA.airport_hubs || []
+};

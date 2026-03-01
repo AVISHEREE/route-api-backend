@@ -1,12 +1,12 @@
+import { getCache, setCache } from "../services/cache.service.js";
+import { buildCacheKey } from "../utils/cacheKey.js";
 import { getBusRoutesService } from "../services/bus.service.js";
-
+import { recordRouteResult } from "../services/analytics.service.js";
 /**
  * Create a stable key for deduplication
  */
 function buildRouteKey(buses = []) {
-  return buses
-    .map(b => `${b.fromStop}→${b.toStop}`)
-    .join("|");
+  return buses.map((b) => `${b.fromStop}→${b.toStop}`).join("|");
 }
 
 /**
@@ -17,15 +17,35 @@ function normalizeTime(t) {
   return t.replace(/\u202F/g, " ").trim(); // remove weird unicode spaces
 }
 
+function parseDurationToMinutes(durationStr) {
+  if (!durationStr || typeof durationStr !== "string") return null;
+  const lower = durationStr.toLowerCase();
+  let total = 0;
+  const hourMatch = lower.match(/(\d+)\s*(hours?|hrs?|h)/);
+  const minMatch = lower.match(/(\d+)\s*(minutes?|mins?|m)/);
+  if (hourMatch) total += parseInt(hourMatch[1], 10) * 60;
+  if (minMatch) total += parseInt(minMatch[1], 10);
+  return total || null;
+}
+
 export async function findDirectBuses(origin, destination, limit = 3) {
   try {
+    const cacheKey = buildCacheKey("BUS_DIRECT", origin, destination, "NA");
+    const cached = await getCache(cacheKey);
+    if (cached) {
+      return {
+        found: true,
+        routes: cached,
+        reason: "CACHE_HIT",
+      };
+    }
     const routes = await getBusRoutesService(origin, destination);
 
     if (!routes || routes.length === 0) {
       return {
         found: false,
         routes: [],
-        reason: "NO_BUSES_FOUND"
+        reason: "NO_BUSES_FOUND",
       };
     }
 
@@ -41,7 +61,7 @@ export async function findDirectBuses(origin, destination, limit = 3) {
 
       const totalEstimatedFare = route.buses.reduce(
         (sum, b) => sum + (b.estimatedFare || 0),
-        0
+        0,
       );
 
       routeMap.set(routeKey, {
@@ -50,9 +70,9 @@ export async function findDirectBuses(origin, destination, limit = 3) {
           totalDistance: route.totalDistance,
           totalDuration: route.totalDuration,
           changes: route.buses.length - 1,
-          totalEstimatedFare
+          totalEstimatedFare,
         },
-        segments: route.buses.map(bus => ({
+        segments: route.buses.map((bus) => ({
           busName: bus.busName,
           busNumber: bus.busNumber,
           from: bus.fromStop,
@@ -61,8 +81,8 @@ export async function findDirectBuses(origin, destination, limit = 3) {
           arrivalTime: normalizeTime(bus.arrivalTime),
           duration: bus.duration,
           distance: bus.distance,
-          estimatedFare: bus.estimatedFare
-        }))
+          estimatedFare: bus.estimatedFare,
+        })),
       });
     }
 
@@ -72,31 +92,42 @@ export async function findDirectBuses(origin, destination, limit = 3) {
       return {
         found: false,
         routes: [],
-        reason: "NO_VALID_BUSES"
+        reason: "NO_VALID_BUSES",
       };
     }
 
+    const bestRoute = uniqueRoutes[0];
+    void recordRouteResult({
+      source: origin,
+      destination,
+      date: "NA",
+      type: "bus_direct",
+      price: bestRoute?.summary?.totalEstimatedFare,
+      duration: parseDurationToMinutes(bestRoute?.summary?.totalDuration),
+    });
+
+    await setCache(cacheKey, uniqueRoutes);
     return {
       found: true,
       routes: uniqueRoutes,
-      reason: "BUSES_FOUND"
+      reason: "BUSES_FOUND",
     };
   } catch (error) {
     return {
       found: false,
       routes: [],
       reason: "BUS_SERVICE_ERROR",
-      error: error.message
+      error: error.message,
     };
   }
 }
-const testDirectBus = async () => {
-  const result = await findDirectBuses(
-    "Bhiwandi, Maharashtra",
-    "Falna, Rajasthan"
-  );
+// const testDirectBus = async () => {
+//   const result = await findDirectBuses(
+//     "Bhiwandi, Maharashtra",
+//     "Falna, Rajasthan"
+//   );
 
-  console.log(JSON.stringify(result, null, 2));
-};
+//   console.log(JSON.stringify(result, null, 2));
+// };
 
-testDirectBus();
+// testDirectBus();

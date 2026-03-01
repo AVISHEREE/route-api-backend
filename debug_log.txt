@@ -1,0 +1,48 @@
+Starting debug run for findTrainBusSegment...
+----- TRAIN + BUS ENGINE START -----
+Source: Mumbai, Destination: Mount Abu
+Found 18 candidate hubs
+Processing hub: New Delhi (NDLS)
+No direct train to New Delhi, trying indirect...
+Train search failed for New Delhi
+Processing hub: Ahmedabad (ADI)
+No direct train to Ahmedabad, trying indirect...
+Train search failed for Ahmedabad
+Processing hub: Pune (PUNE)
+No direct train to Pune, trying indirect...
+Train search failed for Pune
+Processing hub: Itarsi (ET)
+No direct train to Itarsi, trying indirect...
+Train search failed for Itarsi
+Processing hub: Nagpur (NGP)
+No direct train to Nagpur, trying indirect...
+Train search failed for Nagpur
+Processing hub: Kanpur (CNB)
+No direct train to Kanpur, trying indirect...
+Train search failed for Kanpur
+Processing hub: Kalyan (KYN)
+No direct train to Kalyan, trying indirect...
+Train search failed for Kalyan
+Processing hub: Jaipur (JP)
+Error finding train to Jaipur: Request failed with status code 429
+Processing hub: Bhopal (BPL)
+Error finding train to Bhopal: Request failed with status code 429
+Processing hub: Surat (ST)
+Error finding train to Surat: Request failed with status code 429
+Processing hub: Vadodara (BRC)
+Error finding train to Vadodara: Request failed with status code 429
+Processing hub: Jhansi (VGLJ)
+Error finding train to Jhansi: Request failed with status code 429
+Processing hub: Ratlam (RTM)
+Error finding train to Ratlam: Request failed with status code 429
+Processing hub: Kota (KOTA)
+Error finding train to Kota: Request failed with status code 429
+Processing hub: Gwalior (GWL)
+Error finding train to Gwalior: Request failed with status code 429
+Processing hub: Chandigarh (CDG)
+Error finding train to Chandigarh: Request failed with status code 429
+Execution completed.
+Result: {
+  "found": false,
+  "reason": "NO_VALID_TRAIN_BUS_COMBINATIONS"
+}

@@ -40,3 +40,6 @@
 
 //   return routes;
 // }
+const toAbsoluteMinutes = (mins, day) => {
+  return ((day || 1) - 1) * 1440 + mins;
+};

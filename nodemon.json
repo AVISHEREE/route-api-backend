@@ -1,0 +1,6 @@
+{
+    "ignore": [
+        "src/data/cache.json",
+        "debug_log.txt"
+    ]
+}

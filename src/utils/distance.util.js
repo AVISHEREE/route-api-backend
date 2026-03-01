@@ -19,4 +19,7 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
   return R * c; // distance in KM
 }
 
-module.exports = { calculateDistance };
+export
+{ 
+  calculateDistance 
+};
