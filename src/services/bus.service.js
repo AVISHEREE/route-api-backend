@@ -101,6 +101,7 @@ export async function getBusRoutesService(origin, destination) {
         destination,
         mode: "transit",
         transit_mode: "bus",
+        
         alternatives: true,
         key: apiKey,
       },

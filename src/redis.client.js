@@ -9,7 +9,7 @@
  *
  * THIS FIX:
  * ─────────
- * 1. Limits retries to 3 total (not infinite).
+ * 1. Limits retries to 2 failed attempts, then stops.
  * 2. Suppresses the default "error" event logging after first failure.
  * 3. Exports a simple { get, set, del } wrapper that returns null/undefined
  *    on any failure — your cache service can continue working without Redis.
@@ -56,17 +56,17 @@ function createClient() {
      * ─────────────
      * Called after each failed connection attempt.
      * Returning null stops reconnection entirely.
-     * Here we allow 3 attempts then give up.
+     * Here we allow 2 failed attempts then give up.
      */
     retryStrategy(times) {
-      if (times >= 3) {
+      if (times >= 2) {
         if (!failureLogged) {
-          logger.warn("Redis unavailable after 3 attempts. Cache will use MongoDB fallback.");
+          logger.warn("Redis unavailable after 2 failed attempts. Cache will use MongoDB fallback.");
           failureLogged = true;
         }
         return null; // stop retrying
       }
-      return Math.min(times * 500, 2000); // wait 500ms, 1s, 2s
+      return 500; // wait 500ms before the final retry
     },
 
     /*

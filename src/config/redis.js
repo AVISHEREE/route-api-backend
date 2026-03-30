@@ -1,17 +1,13 @@
-import Redis from "ioredis";
 import { logger } from "../services/logger.service.js";
 
-const redisUrl = process.env.REDIS_URL;
+// Redis has been intentionally removed.
+// This is a no-op cache fallback so the app continues running without Redis.
+const noOp = async () => null;
 
-export const redis = redisUrl
-  ? new Redis(redisUrl)
-  : new Redis({
-      host: process.env.REDIS_HOST || "127.0.0.1",
-      port: Number(process.env.REDIS_PORT) || 6379,
-      password: process.env.REDIS_PASSWORD || undefined,
-      maxRetriesPerRequest: 2,
-    });
+export const redis = {
+  get: noOp,
+  set: async () => {},
+  del: async () => {},
+};
 
-redis.on("error", (err) => {
-  logger.warn(`Redis error: ${err.message}`);
-});
+logger.info("Redis support is disabled. Redis calls are no-op.");
