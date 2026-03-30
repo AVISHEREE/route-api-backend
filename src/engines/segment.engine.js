@@ -9,7 +9,7 @@ import {
 } from "./train.engine.js";
 import { findDirectBuses } from "./bus.engine.js";
 import { findFlightSegment } from "./flight.engine.js";
-import { logError } from "../../tp.js";
+import { logError } from "../../error.helper.js";
 import { calculateDistance } from "../utils/distance.util.js";
 import { getCache, setCache } from "../services/cache.service.js";
 import { buildCacheKey } from "../utils/cacheKey.js";
