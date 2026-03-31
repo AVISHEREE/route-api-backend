@@ -26,7 +26,7 @@ const corsOptions = {
   optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 };
 
-app.use(cors(corsOptions)); // Enable CORS with specific options
+app.use(cors({})); // Enable CORS with specific options
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);

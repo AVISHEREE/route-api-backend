@@ -43,7 +43,6 @@ export const saveSearchHistory = async (req, res) => {
 
     return res.json({ success: true });
   } catch (error) {
-    console.error("History Save Error:", error);
     return res.status(500).json({ success: false });
   }
 };
@@ -65,7 +64,6 @@ export const getSearchHistory = async (req, res) => {
       data: histories,
     });
   } catch (error) {
-    console.error("History Fetch Error:", error);
     return res.status(500).json({ success: false });
   }
 };

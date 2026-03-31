@@ -46,10 +46,8 @@ export async function findFlightSegment(
   );
   const cached = await getCache(cacheKey);
   if (cached) {
-    console.log(`Cache hit for key=${cacheKey}`);
     return cached;
   }
-  console.log(`Cache miss for key=${cacheKey}`);
 
   const flights = await searchFlights({
     source: sourcePick.hub.code,

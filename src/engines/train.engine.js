@@ -52,17 +52,14 @@ function pickTopDirectTrains(trains, date, limit = 2) {
 
 export async function findDirectTrains(source, destination, date) {
   const cacheKey = buildCacheKey("TRAIN_DIRECT", source, destination, date);
-  console.log(`Looking for direct trains with key=${cacheKey}`);
   const cached = await getCache(cacheKey);
   if (cached) {
-    console.log(`Cache hit for key=${cacheKey}`);
     return {
       found: true,
       trains: cached,
       reason: "CACHE_HIT",
     };
   }
-  console.log(`Cache miss for key=${cacheKey}`);
 
   const trains = await getTrains(source, destination);
 
@@ -113,14 +110,12 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
   );
   const cached = await getCache(cacheKey);
   if (cached) {
-    console.log(`Cache hit for key=${cacheKey}`);
     return {
       found: true,
       segments: cached,
       reason: "CACHE_HIT",
     };
   }
-  console.log(`Cache miss for key=${cacheKey}`);
 
   const cleanTrain = (t) => {
     const { runningDays, score, ...rest } = t;

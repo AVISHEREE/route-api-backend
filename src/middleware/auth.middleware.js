@@ -24,7 +24,6 @@ export const protect = async (req, res, next) => {
     next();
 
   } catch (err) {
-    console.error("Auth middleware error:", err);
     return res.status(401).json({ success: false });
   }
 };

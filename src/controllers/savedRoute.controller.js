@@ -29,7 +29,6 @@ export const saveRoute = async (req, res) => {
     return res.json({ success: true });
 
   } catch (err) {
-    console.error("Save Route Error:", err);
     return res.status(500).json({ success: false });
   }
 };
@@ -53,7 +52,6 @@ export const getSavedRoutes = async (req, res) => {
     });
 
   } catch (err) {
-    console.error("Get Saved Routes Error:", err);
     return res.status(500).json({ success: false });
   }
 };
@@ -77,7 +75,6 @@ export const deleteSavedRoute = async (req, res) => {
     return res.json({ success: true });
 
   } catch (err) {
-    console.error("Delete Route Error:", err);
     return res.status(500).json({ success: false });
   }
 };
