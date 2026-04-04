@@ -62,7 +62,8 @@ async function getTrains(origin, destination) {
       throw new Error("RailRadar API key is missing");
     }
     const url = `${RAILWAY_URL_V1}/trains/between`;
-
+    console.log(`Fetching trains from ${origin} to ${destination}`);
+    console.log(`Request URL: ${url}`);
     const response = await axios.get(url, {
       params: {
         from: origin,

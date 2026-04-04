@@ -102,7 +102,7 @@ export async function findDirectTrains(source, destination, date) {
 export async function findTwoIndirectTrainSegments(source, destination, date) {
   const hubResult = selectRailwayHubs(source.geo, destination.geo);
   const segments = [];
-  cacheKey = buildCacheKey(
+  const cacheKey = buildCacheKey(
     "TRAIN_INDIRECT",
     source.code,
     destination.code,
