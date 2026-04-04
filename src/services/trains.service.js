@@ -8,7 +8,14 @@ const headers = {
   "X-API-Key": config.railRadar.apiKey,
   Accept: "application/json",
 };
-
+axios.interceptors.request.use((req) => {
+  console.log("=== OUTGOING REQUEST ===");
+  console.log("URL:", req.url);
+  console.log("Params:", JSON.stringify(req.params));
+  console.log("Headers:", JSON.stringify(req.headers));
+  console.log("========================");
+  return req;
+});
 // Find railway stations by text
 async function getStation(
   text,
