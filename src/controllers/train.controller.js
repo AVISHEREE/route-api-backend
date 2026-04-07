@@ -35,10 +35,28 @@ export const getDirectTrains = async (req, res) => {
     });
   } catch (error) {
     logger.error(`Train Error: ${error.message}`);
-    res.status(500).json({
+    console.log("❌ AXIOS ERROR:");
+    console.log("Status:", error.response?.status);
+    console.log("Headers:", error.response?.headers);
+    console.log("Data:", error.response?.data);
+    console.log("Message:", error.message);
+    console.log("Stack:", error.stack);
+
+    // Provide detailed error information
+    const errorDetails = {
       success: false,
       message: error.message,
-    });
+      type: error.name || 'UnknownError',
+      details: {
+        apiStatus: error.response?.status,
+        apiStatusText: error.response?.statusText,
+        apiData: error.response?.data,
+        url: error.config?.url,
+        params: error.config?.params,
+      }
+    };
+
+    res.status(error.response?.status || 500).json(errorDetails);
   }
 };
 
@@ -100,9 +118,24 @@ export const getIndirectTrains = async (req, res) => {
     });
   } catch (error) {
     logger.error(`Indirect Train Error: ${error.message}`);
-    res.status(500).json({
+    console.log("❌ INDIRECT TRAIN ERROR:");
+    console.log("Message:", error.message);
+    console.log("Stack:", error.stack);
+
+    // Provide detailed error information
+    const errorDetails = {
       success: false,
       message: error.message,
-    });
+      type: error.name || 'UnknownError',
+      details: error.response ? {
+        apiStatus: error.response.status,
+        apiStatusText: error.response.statusText,
+        apiData: error.response.data,
+        url: error.config?.url,
+        params: error.config?.params,
+      } : null
+    };
+
+    res.status(error.response?.status || 500).json(errorDetails);
   }
 };

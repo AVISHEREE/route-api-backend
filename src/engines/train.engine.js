@@ -51,56 +51,62 @@ function pickTopDirectTrains(trains, date, limit = 2) {
 }
 
 export async function findDirectTrains(source, destination, date) {
-  const cacheKey = buildCacheKey("TRAIN_DIRECT", source, destination, date);
-  const cached = await getCache(cacheKey);
-  if (cached) {
+  try {
+    const cacheKey = buildCacheKey("TRAIN_DIRECT", source, destination, date);
+    const cached = await getCache(cacheKey);
+    if (cached) {
+      return {
+        found: true,
+        trains: cached,
+        reason: "CACHE_HIT",
+      };
+    }
+
+    const trains = await getTrains(source, destination);
+
+    if (!trains || !trains.length) {
+      return {
+        found: false,
+        trains: [],
+        reason: "NO_DIRECT_TRAINS",
+      };
+    }
+
+    const topTrains = pickTopDirectTrains(trains, date, 2);
+
+    if (!topTrains.length) {
+      return {
+        found: false,
+        trains: [],
+        reason: "NO_TRAINS_ON_SELECTED_DATE",
+      };
+    }
+
+    void recordRouteResult({
+      source,
+      destination,
+      date,
+      type: "train_direct",
+      price: topTrains[0]?.estimatedFare,
+      duration: topTrains[0]?.durationMinutes,
+    });
+
+    await setCache(cacheKey, topTrains);
+
     return {
       found: true,
-      trains: cached,
-      reason: "CACHE_HIT",
+      trains: topTrains,
+      reason: "DIRECT_TRAINS_FOUND",
     };
+  } catch (error) {
+    console.log(`❌ Error in findDirectTrains: ${error.message}`);
+    throw new Error(`Failed to find direct trains: ${error.message}`);
   }
-
-  const trains = await getTrains(source, destination);
-
-  if (!trains || !trains.length) {
-    return {
-      found: false,
-      trains: [],
-      reason: "NO_DIRECT_TRAINS",
-    };
-  }
-
-  const topTrains = pickTopDirectTrains(trains, date, 2);
-
-  if (!topTrains.length) {
-    return {
-      found: false,
-      trains: [],
-      reason: "NO_TRAINS_ON_SELECTED_DATE",
-    };
-  }
-
-  void recordRouteResult({
-    source,
-    destination,
-    date,
-    type: "train_direct",
-    price: topTrains[0]?.estimatedFare,
-    duration: topTrains[0]?.durationMinutes,
-  });
-
-  await setCache(cacheKey, topTrains);
-
-  return {
-    found: true,
-    trains: topTrains,
-    reason: "DIRECT_TRAINS_FOUND",
-  };
 }
 
 export async function findTwoIndirectTrainSegments(source, destination, date) {
-  const hubResult = selectRailwayHubs(source.geo, destination.geo);
+  try {
+    const hubResult = selectRailwayHubs(source.geo, destination.geo);
   const segments = [];
   const cacheKey = buildCacheKey(
     "TRAIN_INDIRECT",
@@ -123,58 +129,77 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
   };
 
   const buildSegment = async (hub, segmentType) => {
-    // SOURCE → HUB
-    const sToHAll = await getTrains(source.code, hub.code);
-    if (!sToHAll?.length) return null;
+    try {
+      // SOURCE → HUB
+      const sToHAll = await getTrains(source.code, hub.code);
+      if (!sToHAll?.length) {
+        console.log(`No trains found from ${source.code} to ${hub.code}`);
+        return null;
+      }
 
-    const sToH = pickTopDirectTrains(sToHAll, date, 1)[0];
-    if (!sToH) return null;
+      const sToH = pickTopDirectTrains(sToHAll, date, 1)[0];
+      if (!sToH) {
+        console.log(`No suitable trains from ${source.code} to ${hub.code} on ${date}`);
+        return null;
+      }
 
-    // HUB → DESTINATION
-    const hToDAll = await getTrains(hub.code, destination.code);
-    if (!hToDAll?.length) return null;
+      // HUB → DESTINATION
+      const hToDAll = await getTrains(hub.code, destination.code);
+      if (!hToDAll?.length) {
+        console.log(`No trains found from ${hub.code} to ${destination.code}`);
+        return null;
+      }
 
-    const hToD = pickTopDirectTrains(hToDAll, date, 1)[0];
-    if (!hToD) return null;
-    await recordRouteResult({
-      source: source.code,
-      destination: destination.code,
-      date,
-      type: "train_indirect",
-      price: (sToH.estimatedFare || 0) + (hToD.estimatedFare || 0),
-      duration: (sToH.durationMinutes || 0) + (hToD.durationMinutes || 0),
-    });
-    return {
-      segmentType,
+      const hToD = pickTopDirectTrains(hToDAll, date, 1)[0];
+      if (!hToD) {
+        console.log(`No suitable trains from ${hub.code} to ${destination.code} on ${date}`);
+        return null;
+      }
 
-      source: {
-        code: source.code,
-        name: source.name || source.code,
-      },
+      await recordRouteResult({
+        source: source.code,
+        destination: destination.code,
+        date,
+        type: "train_indirect",
+        price: (sToH.estimatedFare || 0) + (hToD.estimatedFare || 0),
+        duration: (sToH.durationMinutes || 0) + (hToD.durationMinutes || 0),
+      });
 
-      hub: {
-        code: hub.code,
-        name: hub.name,
-      },
+      return {
+        segmentType,
 
-      destination: {
-        code: destination.code,
-        name: destination.name || destination.code,
-      },
+        source: {
+          code: source.code,
+          name: source.name || source.code,
+        },
 
-      trains: {
-        sourceToHub: cleanTrain(sToH),
-        hubToDestination: cleanTrain(hToD),
-      },
+        hub: {
+          code: hub.code,
+          name: hub.name,
+        },
 
-      summary: {
-        totalEstimatedFare:
-          (sToH.estimatedFare || 0) + (hToD.estimatedFare || 0),
+        destination: {
+          code: destination.code,
+          name: destination.name || destination.code,
+        },
 
-        totalDurationMinutes:
-          (sToH.durationMinutes || 0) + (hToD.durationMinutes || 0),
-      },
-    };
+        trains: {
+          sourceToHub: cleanTrain(sToH),
+          hubToDestination: cleanTrain(hToD),
+        },
+
+        summary: {
+          totalEstimatedFare:
+            (sToH.estimatedFare || 0) + (hToD.estimatedFare || 0),
+
+          totalDurationMinutes:
+            (sToH.durationMinutes || 0) + (hToD.durationMinutes || 0),
+        },
+      };
+    } catch (error) {
+      console.log(`❌ Error building segment ${segmentType} via ${hub.code}: ${error.message}`);
+      return null;
+    }
   };
 
   // 1️⃣ NEAR HUB SEGMENT
@@ -204,6 +229,10 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
     found: true,
     segments,
   };
+  } catch (error) {
+    console.log(`❌ Error in findTwoIndirectTrainSegments: ${error.message}`);
+    throw new Error(`Failed to find indirect train segments: ${error.message}`);
+  }
 }
 
 // const test = async () => {
