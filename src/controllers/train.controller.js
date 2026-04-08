@@ -1,15 +1,18 @@
 import {
   findDirectTrains,
   findTwoIndirectTrainSegments,
+  processDirectTrains,
 } from "../engines/train.engine.js";
 import { saveSearch } from "../services/history.service.js";
 import {
   isNonEmptyString,
   isObject,
   isValidDateString,
+  isArray,
   toNumber,
 } from "../utils/validation.js";
 import { logger } from "../services/logger.service.js";
+import { formatTrain } from "../utils/train.formatter.js";
 
 export const getDirectTrains = async (req, res) => {
   try {
@@ -35,28 +38,10 @@ export const getDirectTrains = async (req, res) => {
     });
   } catch (error) {
     logger.error(`Train Error: ${error.message}`);
-    console.log("❌ AXIOS ERROR:");
-    console.log("Status:", error.response?.status);
-    console.log("Headers:", error.response?.headers);
-    console.log("Data:", error.response?.data);
-    console.log("Message:", error.message);
-    console.log("Stack:", error.stack);
-
-    // Provide detailed error information
-    const errorDetails = {
+    res.status(error.response?.status || 500).json({
       success: false,
       message: error.message,
-      type: error.name || 'UnknownError',
-      details: {
-        apiStatus: error.response?.status,
-        apiStatusText: error.response?.statusText,
-        apiData: error.response?.data,
-        url: error.config?.url,
-        params: error.config?.params,
-      }
-    };
-
-    res.status(error.response?.status || 500).json(errorDetails);
+    });
   }
 };
 
@@ -118,24 +103,87 @@ export const getIndirectTrains = async (req, res) => {
     });
   } catch (error) {
     logger.error(`Indirect Train Error: ${error.message}`);
-    console.log("❌ INDIRECT TRAIN ERROR:");
-    console.log("Message:", error.message);
-    console.log("Stack:", error.stack);
-
-    // Provide detailed error information
-    const errorDetails = {
+    res.status(error.response?.status || 500).json({
       success: false,
       message: error.message,
-      type: error.name || 'UnknownError',
-      details: error.response ? {
-        apiStatus: error.response.status,
-        apiStatusText: error.response.statusText,
-        apiData: error.response.data,
-        url: error.config?.url,
-        params: error.config?.params,
-      } : null
-    };
+    });
+  }
+};
 
-    res.status(error.response?.status || 500).json(errorDetails);
+/**
+ * Process frontend-provided train data without calling external APIs
+ * Accepts raw train data from frontend and applies business logic
+ *
+ * Request body:
+ * {
+ *   "source": "BIRD",
+ *   "destination": "FA",
+ *   "date": "2026-04-24",
+ *   "trains": [...] // raw trains data from frontend
+ * }
+ */
+export const processDirectTrainsController = async (req, res) => {
+  try {
+    const { source, destination, date, trains } = req.body;
+
+    // Validate required fields
+    if (!isNonEmptyString(source) || !isNonEmptyString(destination)) {
+      return res.status(400).json({
+        success: false,
+        message: "source and destination are required",
+      });
+    }
+
+    if (!isValidDateString(date)) {
+      return res.status(400).json({
+        success: false,
+        message: "date must be a valid date string",
+      });
+    }
+
+    if (!isArray(trains) || trains.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "trains must be a non-empty array",
+      });
+    }
+
+    // Format raw RailRadar trains into the internal schema expected by the engine.
+    // The browser sends raw API objects (field names: travelTimeMinutes, runningDays.days, etc.).
+    // formatTrain() translates them to: durationMinutes, runningDays[], estimatedFare, etc.
+    const formattedTrains = trains
+      .map((raw) => {
+        try {
+          return formatTrain(raw);
+        } catch (err) {
+          logger.warn(`Skipping malformed train object: ${err.message}`);
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    if (formattedTrains.length === 0) {
+      return res.status(422).json({
+        success: false,
+        message: "No valid trains could be extracted from the provided data",
+      });
+    }
+
+    // Apply business logic: date filtering, scoring, analytics, caching
+    const result = await processDirectTrains(source, destination, date, formattedTrains);
+
+    // Record in search history
+    void saveSearch(source, destination, date);
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    logger.error(`Process Train Error: ${error.message}`);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };

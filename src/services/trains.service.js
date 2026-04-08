@@ -8,36 +8,13 @@ const headers = {
   "X-API-Key": config.railRadar.apiKey,
   Accept: "application/json",
 };
-axios.interceptors.request.use((req) => {
-  console.log("=== OUTGOING REQUEST ===");
-  console.log("URL:", req.url);
-  console.log("Params:", JSON.stringify(req.params));
-  console.log("Headers:", JSON.stringify(req.headers));
-  console.log("========================");
-  return req;
-});
 
 // Enhanced error logging function
 function logApiError(error, operation) {
-  console.log(`❌ API ERROR in ${operation}:`);
-  console.log("Status:", error.response?.status);
-  console.log("Status Text:", error.response?.statusText);
-  console.log("Headers:", error.response?.headers);
-  console.log("Data:", error.response?.data);
-  console.log("Message:", error.message);
-  console.log("Config:", {
-    url: error.config?.url,
-    method: error.config?.method,
-    params: error.config?.params,
-  });
-
   logger.error(`Railway API Error in ${operation}:`, {
     status: error.response?.status,
-    statusText: error.response?.statusText,
-    data: error.response?.data,
     message: error.message,
     url: error.config?.url,
-    params: error.config?.params,
   });
 }
 // Find railway stations by text
@@ -88,9 +65,7 @@ async function getStation(
     throw new Error(`Failed to search stations: ${err.message}`);
   }
 }
-console.log("ENV CHECK:");
-console.log("API KEY:", config.railRadar.apiKey ? "Present ✅" : "Missing ❌");
-console.log("BASE URL:", RAILWAY_URL_V1); 
+
 async function getTrains(origin, destination) {
   if (!origin || !destination) {
     return [];
@@ -128,14 +103,11 @@ async function getTrains(origin, destination) {
 
     const trains = response.data?.data?.trains || [];
 
-    console.log(`Found ${trains.length} trains from API`);
-
     return trains
       .map((train) => {
         try {
           return formatTrain(train);
         } catch (err) {
-          console.log(`Error formatting train ${train?.number || 'unknown'}:`, err.message);
           logger.warn(`Train formatting failed for train ${train?.number || 'unknown'}: ${err.message}`);
           return null;
         }

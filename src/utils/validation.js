@@ -16,3 +16,7 @@ export function isValidDateString(value) {
 export function isObject(value) {
   return value !== null && typeof value === "object";
 }
+
+export function isArray(value) {
+  return Array.isArray(value);
+}

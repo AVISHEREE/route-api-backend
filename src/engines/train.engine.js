@@ -99,7 +99,6 @@ export async function findDirectTrains(source, destination, date) {
       reason: "DIRECT_TRAINS_FOUND",
     };
   } catch (error) {
-    console.log(`❌ Error in findDirectTrains: ${error.message}`);
     throw new Error(`Failed to find direct trains: ${error.message}`);
   }
 }
@@ -133,26 +132,22 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
       // SOURCE → HUB
       const sToHAll = await getTrains(source.code, hub.code);
       if (!sToHAll?.length) {
-        console.log(`No trains found from ${source.code} to ${hub.code}`);
         return null;
       }
 
       const sToH = pickTopDirectTrains(sToHAll, date, 1)[0];
       if (!sToH) {
-        console.log(`No suitable trains from ${source.code} to ${hub.code} on ${date}`);
         return null;
       }
 
       // HUB → DESTINATION
       const hToDAll = await getTrains(hub.code, destination.code);
       if (!hToDAll?.length) {
-        console.log(`No trains found from ${hub.code} to ${destination.code}`);
         return null;
       }
 
       const hToD = pickTopDirectTrains(hToDAll, date, 1)[0];
       if (!hToD) {
-        console.log(`No suitable trains from ${hub.code} to ${destination.code} on ${date}`);
         return null;
       }
 
@@ -197,7 +192,6 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
         },
       };
     } catch (error) {
-      console.log(`❌ Error building segment ${segmentType} via ${hub.code}: ${error.message}`);
       return null;
     }
   };
@@ -230,7 +224,6 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
     segments,
   };
   } catch (error) {
-    console.log(`❌ Error in findTwoIndirectTrainSegments: ${error.message}`);
     throw new Error(`Failed to find indirect train segments: ${error.message}`);
   }
 }
@@ -248,6 +241,50 @@ export async function findTwoIndirectTrainSegments(source, destination, date) {
 // const hubs = selectRailwayHubs(
 //   { lat: 19.2813, lng: 73.0483 },  // Bhiwandi
 //   { lat: 26.9124, lng: 75.7873 } // Jaipur
+
+/**
+ * Process frontend-provided train data without calling external APIs
+ * Filters trains by date, scores them, and returns top results
+ * Reuses existing business logic: pickTopDirectTrains, recordRouteResult
+ */
+export async function processDirectTrains(source, destination, date, trains) {
+  try {
+    if (!trains || !trains.length) {
+      return {
+        found: false,
+        trains: [],
+        reason: "NO_DIRECT_TRAINS",
+      };
+    }
+
+    const topTrains = pickTopDirectTrains(trains, date, 2);
+
+    if (!topTrains.length) {
+      return {
+        found: false,
+        trains: [],
+        reason: "NO_TRAINS_ON_SELECTED_DATE",
+      };
+    }
+
+    void recordRouteResult({
+      source,
+      destination,
+      date,
+      type: "train_direct",
+      price: topTrains[0]?.estimatedFare,
+      duration: topTrains[0]?.durationMinutes,
+    });
+
+    return {
+      found: true,
+      trains: topTrains,
+      reason: "DIRECT_TRAINS_FOUND",
+    };
+  } catch (error) {
+    throw new Error(`Failed to process direct trains: ${error.message}`);
+  }
+}
 // );
 // console.log(JSON.stringify(hubs, null, 2));
 // const testIndirect = async () => {

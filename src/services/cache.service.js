@@ -9,7 +9,6 @@ const DEFAULT_TTL_SECONDS = config.cache.ttl;
  */
 export async function getCache(key) {
   if (!key) return null;
-  console.log(`Cache lookup for key=${key}`);
 
   // Read from Mongo cache only (Redis removed)
   try {
