@@ -1,4 +1,5 @@
 import { calculateFare } from "./fare.util.js";
+import { getName } from "./stationCodes.js";
 
 function formatTrain(train) {
   const fromSchedule = train?.fromStationSchedule || {};
@@ -14,14 +15,14 @@ function formatTrain(train) {
 
     from: {
       stationCode: train?.sourceStationCode,
-      stationName: train?.sourceStationName,
+      stationName: train?.sourceStationName || getName(train?.sourceStationCode),
       departureMinutes: fromSchedule.departureMinutes,
       day: fromSchedule.day
     },
 
     to: {
       stationCode: train?.destinationStationCode,
-      stationName: train?.destinationStationName,
+      stationName: train?.destinationStationName || getName(train?.destinationStationCode),
       arrivalMinutes: toSchedule.arrivalMinutes,
       day: toSchedule.day
     },

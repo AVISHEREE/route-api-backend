@@ -3,6 +3,7 @@ import {
   selectAirportHubs,
   HUB_DATA_ex as HUB_DATA,
 } from "./hub.selector.js";
+import { getName } from "../utils/stationCodes.js";
 import {
   findDirectTrains,
   findTwoIndirectTrainSegments,
@@ -274,7 +275,7 @@ export async function findFlightTrainSegment(source, destination, date) {
       routes.push({
         score,
         summary: {
-          airport: bestAirport.code,
+            airportName: bestAirport.name,
           railHub: bestRailway.code,
           city: bestAirport.city,
           totalDurationMinutes: totalDuration,
@@ -293,7 +294,7 @@ export async function findFlightTrainSegment(source, destination, date) {
             airportName: bestAirport.name,
           },
           {
-            leg: `Transit within ${bestAirport.city}`,
+            stationName: getName(bestRailway.code) || bestRailway.name,
             from: bestAirport.code,
             to: bestRailway.code,
             mode: "Taxi/Bus",
@@ -309,7 +310,7 @@ export async function findFlightTrainSegment(source, destination, date) {
             identifier: train.trainNumber,
             duration: train.durationMinutes,
             fare: train.estimatedFare,
-            stationName: bestRailway.name,
+            stationName: getName(bestRailway.code) || bestRailway.name,
           },
         ],
       });

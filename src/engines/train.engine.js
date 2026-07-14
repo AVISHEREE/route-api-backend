@@ -1,8 +1,9 @@
 import { getCache, setCache } from "../services/cache.service.js";
 import { buildCacheKey } from "../utils/cacheKey.js";
-import { getTrains } from "../services/trains.service.js";
+import { getTrains, getStation } from "../services/trains.service.js";
 import { selectRailwayHubs } from "./hub.selector.js";
 import { recordRouteResult } from "../services/analytics.service.js";
+import { logger } from "../services/logger.service.js";
 
 const TRAIN_TYPE_WEIGHT = {
   RAJDHANI: 1.3,
@@ -62,7 +63,46 @@ export async function findDirectTrains(source, destination, date) {
       };
     }
 
-    const trains = await getTrains(source, destination);
+    // Step 1: Convert city names to station codes
+    let sourceStation, destinationStation;
+    try {
+      sourceStation = await getStation(source);
+      if (!sourceStation || !sourceStation.code) {
+        return {
+          found: false,
+          trains: [],
+          reason: "SOURCE_STATION_NOT_FOUND",
+        };
+      }
+    } catch (err) {
+      logger.error(`Failed to find source station for "${source}": ${err.message}`);
+      return {
+        found: false,
+        trains: [],
+        reason: "SOURCE_STATION_LOOKUP_FAILED",
+      };
+    }
+
+    try {
+      destinationStation = await getStation(destination);
+      if (!destinationStation || !destinationStation.code) {
+        return {
+          found: false,
+          trains: [],
+          reason: "DESTINATION_STATION_NOT_FOUND",
+        };
+      }
+    } catch (err) {
+      logger.error(`Failed to find destination station for "${destination}": ${err.message}`);
+      return {
+        found: false,
+        trains: [],
+        reason: "DESTINATION_STATION_LOOKUP_FAILED",
+      };
+    }
+
+    // Step 2: Call getTrains with station codes instead of city names
+    const trains = await getTrains(sourceStation.code, destinationStation.code);
 
     if (!trains || !trains.length) {
       return {
